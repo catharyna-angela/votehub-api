@@ -29,7 +29,7 @@ public class Client {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "perfil", nullable = false)
-    private Roles rolesEnum = Roles.ROLE_CLIENT;
+    private Roles role = Roles.ROLE_CLIENT;
 
     @Column(name = "validado", nullable = false)
     private boolean validated = false;

@@ -17,7 +17,7 @@ public class ClientService {
     @Transactional
     public Client save(Client client) {
         clientRepository.save(client);
-        log.info("Cliente criado.");
+        log.info("'Cliente criado.'");
 
         return client;
     }
