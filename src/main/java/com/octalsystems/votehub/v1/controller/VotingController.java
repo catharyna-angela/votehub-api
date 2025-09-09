@@ -5,10 +5,7 @@ import com.octalsystems.votehub.v1.service.VotingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +18,11 @@ public class VotingController {
     public ResponseEntity<Voting> create(@RequestBody Voting votingCreateDTO){
         Voting voting = votingService.save(votingCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(voting);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Voting votingUpdateDTO){ //se a votação não tiver nenhum voto ainda, permitir a alteração.
+        votingService.update(id, votingUpdateDTO);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

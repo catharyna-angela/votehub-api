@@ -21,4 +21,25 @@ public class VotingService {
 
         return votingCreateDTO;
     }
+
+    @Transactional
+    public void update(Long pollId, Voting votingUpdateDTO) {
+        try {
+            Voting existingVoting = votingRepository.findById(pollId)
+                    .orElseThrow(() -> new RuntimeException("Id da votação está incorreto ou não existe."));
+
+            existingVoting.setTitle(votingUpdateDTO.getTitle());
+            existingVoting.setDescription(votingUpdateDTO.getDescription());
+            existingVoting.setExpirationDate(votingUpdateDTO.getExpirationDate());
+            existingVoting.setGenerateQrcode(votingUpdateDTO.isGenerateQrcode());
+
+            votingRepository.save(existingVoting);
+            log.info("'Votação atualizada com sucesso.'");
+
+        } catch (Exception ex) {
+            log.error("Erro ao atualizar votação: {}", ex.getMessage());
+            throw ex;
+        }
+
+    }
 }
