@@ -1,11 +1,14 @@
 package com.octalsystems.votehub.v1.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -29,7 +32,8 @@ public class Voting {
     @Column(name = "descricao")
     private String description;
 
-    @Column(name = "data_de_expiracao")
+    @Column(name = "data_de_expiracao", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expirationDate;
 
     @Column(name = "url")
@@ -44,6 +48,10 @@ public class Voting {
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(name = "data_modificacao")
+    private LocalDateTime modifiedDate;
 
     @Override
     public boolean equals(Object o) {
