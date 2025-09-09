@@ -1,7 +1,7 @@
 # Projeto VoteHub
 ![Versão](https://img.shields.io/badge/version-0.0.2-blue.svg)
 
-VoteHub é uma API escrita em Java 17 que visa ajudar o usuário a criar votações, enquetes e futuramente
+VoteHub é uma API RESTful escrita em Java 17 que visa ajudar o usuário a criar votações, enquetes e futuramente
 outras formas de decisões, possui auditoria e análise dos dados.
 
 ## Pré-requisitos
@@ -18,7 +18,7 @@ outras formas de decisões, possui auditoria e análise dos dados.
 ```bash
   git clone https://github.com/catharyna-angela/votehub-api.git
 ```
-2. 
+
 
 [//]: # (## Usage)
 
