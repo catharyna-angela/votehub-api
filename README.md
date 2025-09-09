@@ -1,22 +1,24 @@
 # Projeto VoteHub
 ![Versão](https://img.shields.io/badge/version-0.0.2-blue.svg)
 
-VoteHub é uma API escrita em Java que visa ajudar o usuário a criar votações, enquetes e futuramente
+VoteHub é uma API escrita em Java 17 que visa ajudar o usuário a criar votações, enquetes e futuramente
 outras formas de decisões, possui auditoria e análise dos dados.
 
 ## Pré-requisitos
-- MySQL Workbench v8.0
-- JDK 17.0.15
-- Postman ou qualquer outra ferramenta de sua preferência.
-- Git
+- [MySQL Workbench 8.0](https://dev.mysql.com/downloads/workbench)
+- [JDK 17.0.X](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- [Postman](https://www.postman.com/downloads) ou qualquer outra ferramenta de sua preferência.
+- [Git](https://git-scm.com/downloads)
+- [Intellij IDEA Community](https://www.jetbrains.com/idea/download) ou outra IDE de sua preferência.
 
 ## Instalação
 
-Execute o comando abaixo no [git](https://pip.pypa.io/en/stable/) para clonar o projeto localmente.
+1. Execute o comando abaixo no git para clonar o projeto localmente.
 
 ```bash
   git clone https://github.com/catharyna-angela/votehub-api.git
 ```
+2. 
 
 [//]: # (## Usage)
 
