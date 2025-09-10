@@ -1,4 +1,5 @@
 # Projeto VoteHub
+![GitHub License](https://img.shields.io/github/license/catharyna-angela/votehub-api)
 ![Versão](https://img.shields.io/badge/version-0.0.2-blue.svg)
 
 VoteHub é uma API RESTful escrita em Java 17 que visa ajudar o usuário a criar votações, enquetes e futuramente
