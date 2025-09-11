@@ -1,8 +1,6 @@
 package com.octalsystems.votehub.v1.controller;
 
-import com.octalsystems.votehub.v1.entity.Poll;
 import com.octalsystems.votehub.v1.entity.Voting;
-import com.octalsystems.votehub.v1.service.PollService;
 import com.octalsystems.votehub.v1.service.VotingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/voting")
+@RequestMapping("/api/v1/schemes/voting")
 public class VotingController {
 
     private final VotingService votingService;

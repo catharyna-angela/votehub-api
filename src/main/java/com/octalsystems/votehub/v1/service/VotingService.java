@@ -1,8 +1,6 @@
 package com.octalsystems.votehub.v1.service;
 
-import com.octalsystems.votehub.v1.entity.Poll;
 import com.octalsystems.votehub.v1.entity.Voting;
-import com.octalsystems.votehub.v1.repository.PollRepository;
 import com.octalsystems.votehub.v1.repository.VotingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,23 +15,23 @@ public class VotingService {
     private final VotingRepository votingRepository;
 
     @Transactional
-    public Voting save(Voting votingCreateDTO) {
-        votingRepository.save(votingCreateDTO);
+    public Voting save(Voting voting) {
+        votingRepository.save(voting);
         log.info("'Votação criada.'");
 
-        return votingCreateDTO;
+        return voting;
     }
 
     @Transactional
-    public void update(Long pollId, Voting votingUpdateDTO) {
+    public void update(Long id, Voting voting) {
         try {
-            Voting existingVoting = votingRepository.findById(pollId)
+            Voting existingVoting = votingRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Id da votação está incorreto ou não existe."));
 
-            existingVoting.setTitle(votingUpdateDTO.getTitle());
-            existingVoting.setDescription(votingUpdateDTO.getDescription());
-            existingVoting.setExpirationDate(votingUpdateDTO.getExpirationDate());
-            existingVoting.setGenerateQrcode(votingUpdateDTO.isGenerateQrcode());
+            existingVoting.setTitle(voting.getTitle());
+            existingVoting.setDescription(voting.getDescription());
+            existingVoting.setExpirationDate(voting.getExpirationDate());
+            existingVoting.setGenerateQrcode(voting.isGenerateQrcode());
 
             votingRepository.save(existingVoting);
             log.info("'Votação atualizada com sucesso.'");
