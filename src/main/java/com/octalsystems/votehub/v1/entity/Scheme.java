@@ -13,15 +13,16 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Setter
 @Getter
-@Table(name = "votacao")
-@NoArgsConstructor
-public class Voting {
+public abstract class Scheme {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "esquemas_seq", sequenceName = "esquemas_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "esquemas_seq")
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -41,8 +42,13 @@ public class Voting {
     @Column(name = "gerar_qrcode", nullable = false)
     private boolean generateQrcode = false; //se true, a url será convertida em imagem qrcode.
 
-//    @Column(name = "candidatos", nullable = false)
-//    List<Candidate> candidates;
+//    @OneToMany
+//    @Column(name = "opcoes", nullable = false)
+//    List<Opcoes> opcoes;
+
+//    @OneToOne
+//    @Column(name = "cliente")
+//    Client client;
 
     @CreatedDate
     @Column(name = "data_criacao")
@@ -55,8 +61,8 @@ public class Voting {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Voting voting = (Voting) o;
-        return Objects.equals(id, voting.id);
+        Scheme scheme = (Scheme) o;
+        return Objects.equals(id, scheme.id);
     }
 
     @Override

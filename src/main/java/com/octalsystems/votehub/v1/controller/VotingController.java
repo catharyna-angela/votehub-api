@@ -1,6 +1,8 @@
 package com.octalsystems.votehub.v1.controller;
 
+import com.octalsystems.votehub.v1.entity.Poll;
 import com.octalsystems.votehub.v1.entity.Voting;
+import com.octalsystems.votehub.v1.service.PollService;
 import com.octalsystems.votehub.v1.service.VotingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
