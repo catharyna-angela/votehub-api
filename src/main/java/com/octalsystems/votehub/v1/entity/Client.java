@@ -31,7 +31,7 @@ public class Client {
     @Column(name = "nome", nullable = false, length = 32)
     private String name;
 
-    @Column(name = "e-mail", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -48,7 +48,6 @@ public class Client {
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime lastModifiedDate;
-
 
     @Override
     public boolean equals(Object o) {

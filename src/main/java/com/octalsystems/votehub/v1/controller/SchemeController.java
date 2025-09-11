@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/schemes")
+@RequestMapping("/api/v1/schemes")
 public class SchemeController {
 
     private final SchemeService schemeService;
