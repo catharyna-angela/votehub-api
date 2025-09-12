@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.octalsystems</groupId>
 	<artifactId>votehub-api</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.5.2-SNAPSHOT</version>
 	<name>votehub-api</name>
 	<description>API REST de decisão por voto, enquete e outros.</description>
 	<url>https://github.com/catharyna-angela/votehub-api.git</url>
@@ -74,6 +74,11 @@
 		</dependency>
 
 		<!-- OTHER DEPENDENCIES -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.2.4</version>
+		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
