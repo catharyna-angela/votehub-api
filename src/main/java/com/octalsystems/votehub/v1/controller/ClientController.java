@@ -1,7 +1,11 @@
 package com.octalsystems.votehub.v1.controller;
 
+import com.octalsystems.votehub.v1.dto.CreateClientDTO;
+import com.octalsystems.votehub.v1.dto.ResponseClientDTO;
+import com.octalsystems.votehub.v1.dto.mapper.ClientMapper;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.service.ClientService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +19,8 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping
-    ResponseEntity<Client> create(@RequestBody Client clientCreateDTO){
-        Client client1 = clientService.save(clientCreateDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(client1);
+    ResponseEntity<ResponseClientDTO> create(@Valid @RequestBody CreateClientDTO createClientDTO){
+        Client client = clientService.save(ClientMapper.toClient(createClientDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ClientMapper.toCreateResponseClientDTO(client));
     }
 }
