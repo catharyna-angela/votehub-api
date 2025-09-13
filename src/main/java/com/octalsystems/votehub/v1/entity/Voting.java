@@ -1,6 +1,7 @@
 package com.octalsystems.votehub.v1.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,6 @@ import lombok.Setter;
 @Getter
 @Table(name = "votacoes")
 @NoArgsConstructor
-public class Voting extends Scheme{
+public class Voting extends Scheme {
 
 }

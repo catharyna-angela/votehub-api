@@ -2,6 +2,7 @@ package com.octalsystems.votehub.v1.service;
 
 import com.octalsystems.votehub.v1.entity.Poll;
 import com.octalsystems.votehub.v1.repository.PollRepository;
+import com.octalsystems.votehub.v1.utils.SchemeType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,11 @@ public class PollService {
     private final PollRepository pollRepository;
 
     @Transactional
-    public Poll save(Poll pollCreateDTO) {
-        pollRepository.save(pollCreateDTO);
+    public Poll save(Poll poll) {
+        poll.setSchemeType(SchemeType.ENQUETE);
+        pollRepository.save(poll);
         log.info("'Enquete criada.'");
 
-        return pollCreateDTO;
+        return poll;
     }
 }

@@ -1,6 +1,7 @@
 package com.octalsystems.votehub.v1.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.octalsystems.votehub.v1.utils.SchemeType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,11 +37,18 @@ public abstract class Scheme {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expirationDate;
 
+    @Column(name = "expirado", nullable = false)
+    private boolean expired = false;
+
     @Column(name = "url")
     private String url = null;
 
     @Column(name = "gerar_qrcode", nullable = false)
     private boolean generateQrcode = false; //se true, a url será convertida em imagem qrcode.
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_esquema", nullable = false)
+    private SchemeType schemeType;
 
 //    @OneToMany
 //    @Column(name = "opcoes", nullable = false)

@@ -2,6 +2,7 @@ package com.octalsystems.votehub.v1.service;
 
 import com.octalsystems.votehub.v1.entity.Voting;
 import com.octalsystems.votehub.v1.repository.VotingRepository;
+import com.octalsystems.votehub.v1.utils.SchemeType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class VotingService {
 
     @Transactional
     public Voting save(Voting voting) {
+        voting.setSchemeType(SchemeType.VOTACAO);
         votingRepository.save(voting);
         log.info("'Votação criada.'");
 
