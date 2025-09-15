@@ -16,11 +16,11 @@ public class PollService {
     private final PollRepository pollRepository;
 
     @Transactional
-    public Poll save(Poll poll) {
-        poll.setSchemeType(SchemeType.ENQUETE);
-        pollRepository.save(poll);
+    public Poll save(Poll createPollDTO) {
+        createPollDTO.setSchemeType(SchemeType.ENQUETE);
+        pollRepository.save(createPollDTO);
         log.info("'Enquete criada.'");
 
-        return poll;
+        return createPollDTO;
     }
 }

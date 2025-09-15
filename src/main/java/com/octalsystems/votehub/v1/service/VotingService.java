@@ -16,24 +16,24 @@ public class VotingService {
     private final VotingRepository votingRepository;
 
     @Transactional
-    public Voting save(Voting voting) {
-        voting.setSchemeType(SchemeType.VOTACAO);
-        votingRepository.save(voting);
+    public Voting save(Voting createVotingDTO) {
+        createVotingDTO.setSchemeType(SchemeType.VOTACAO);
+        votingRepository.save(createVotingDTO);
         log.info("'Votação criada.'");
 
-        return voting;
+        return createVotingDTO;
     }
 
     @Transactional
-    public void update(Long id, Voting voting) {
+    public void update(Long id, Voting updateVotingDTO) {
         try {
             Voting existingVoting = votingRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Id da votação está incorreto ou não existe."));
 
-            existingVoting.setTitle(voting.getTitle());
-            existingVoting.setDescription(voting.getDescription());
-            existingVoting.setExpirationDate(voting.getExpirationDate());
-            existingVoting.setGenerateQrcode(voting.isGenerateQrcode());
+            existingVoting.setTitle(updateVotingDTO.getTitle());
+            existingVoting.setDescription(updateVotingDTO.getDescription());
+            existingVoting.setExpirationDate(updateVotingDTO.getExpirationDate());
+            existingVoting.setGenerateQrcode(updateVotingDTO.isGenerateQrcode());
 
             votingRepository.save(existingVoting);
             log.info("'Votação atualizada com sucesso.'");
