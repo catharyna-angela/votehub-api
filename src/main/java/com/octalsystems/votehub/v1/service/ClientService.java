@@ -1,7 +1,6 @@
 package com.octalsystems.votehub.v1.service;
 
 import com.octalsystems.votehub.v1.entity.Client;
-import com.octalsystems.votehub.v1.entity.Voting;
 import com.octalsystems.votehub.v1.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +15,11 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     @Transactional
-    public Client save(Client client) {
-        clientRepository.save(client);
+    public Client save(Client createClientDTO) {
+        clientRepository.save(createClientDTO);
         log.info("'Cliente criado.'");
 
-        return client;
+        return createClientDTO;
     }
 
     @Transactional
