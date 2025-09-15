@@ -1,7 +1,8 @@
 package com.octalsystems.votehub.v1.dto.mapper;
 
 import com.octalsystems.votehub.v1.dto.CreateClientDTO;
-import com.octalsystems.votehub.v1.dto.ResponseClientDTO;
+import com.octalsystems.votehub.v1.dto.ResponseCreateClientDTO;
+import com.octalsystems.votehub.v1.dto.UpdateClientDTO;
 import com.octalsystems.votehub.v1.entity.Client;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -12,9 +13,13 @@ public class ClientMapper {
         return new ModelMapper().map(createClientDTO, Client.class);
     }
 
-    public static ResponseClientDTO toCreateResponseClientDTO(Client client) { //DTO de resposta para quando criar um cliente.
+    public static Client toClient(UpdateClientDTO updateClientDTO){
+        return new ModelMapper().map(updateClientDTO, Client.class);
+    }
+
+    public static ResponseCreateClientDTO toResponseCreateClientDTO(Client client) { //DTO de resposta para quando criar um cliente.
         String roleName = client.getRole().name().substring("ROLE_".length());
-         PropertyMap<Client, ResponseClientDTO> props = new PropertyMap<Client, ResponseClientDTO>() {
+         PropertyMap<Client, ResponseCreateClientDTO> props = new PropertyMap<Client, ResponseCreateClientDTO>() {
             @Override
             protected void configure() {
                 map().setRole(roleName);
@@ -23,7 +28,7 @@ public class ClientMapper {
         ModelMapper mapper = new ModelMapper();
         mapper.addMappings(props);
 
-        return mapper.map(client, ResponseClientDTO.class);
+        return mapper.map(client, ResponseCreateClientDTO.class);
     }
 
 }

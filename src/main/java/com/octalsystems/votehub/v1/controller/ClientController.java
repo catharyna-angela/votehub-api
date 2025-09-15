@@ -1,7 +1,8 @@
 package com.octalsystems.votehub.v1.controller;
 
 import com.octalsystems.votehub.v1.dto.CreateClientDTO;
-import com.octalsystems.votehub.v1.dto.ResponseClientDTO;
+import com.octalsystems.votehub.v1.dto.ResponseCreateClientDTO;
+import com.octalsystems.votehub.v1.dto.UpdateClientDTO;
 import com.octalsystems.votehub.v1.dto.mapper.ClientMapper;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.service.ClientService;
@@ -19,8 +20,15 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping
-    ResponseEntity<ResponseClientDTO> create(@Valid @RequestBody CreateClientDTO createClientDTO){
+    ResponseEntity<ResponseCreateClientDTO> create(@Valid @RequestBody CreateClientDTO createClientDTO){
         Client client = clientService.save(ClientMapper.toClient(createClientDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).body(ClientMapper.toCreateResponseClientDTO(client));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ClientMapper.toResponseCreateClientDTO(client));
     }
+
+    @PutMapping("/{id}")
+    ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UpdateClientDTO updateClientDTO){
+        clientService.update(id, ClientMapper.toClient(updateClientDTO));
+        return ResponseEntity.status(HttpStatus.OK).build(); //passar como resposta um feedback de que a conta foi atualizada.
+    }
+
 }

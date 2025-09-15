@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.octalsystems</groupId>
 	<artifactId>votehub-api</artifactId>
-	<version>0.5.2-SNAPSHOT</version>
+	<version>0.6.2-SNAPSHOT</version>
 	<name>votehub-api</name>
 	<description>API REST de decisão por voto, enquete e outros.</description>
 	<url>https://github.com/catharyna-angela/votehub-api.git</url>
@@ -39,7 +39,6 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-
 	<dependencies>
 		<!-- SPRING BOOT -->
 		<dependency>
@@ -72,7 +71,6 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-
 		<!-- OTHER DEPENDENCIES -->
 		<dependency>
 			<groupId>org.modelmapper</groupId>
@@ -94,7 +92,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -107,7 +104,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
