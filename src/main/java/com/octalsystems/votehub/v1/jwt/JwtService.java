@@ -1,9 +1,7 @@
 package com.octalsystems.votehub.v1.jwt;
 
 import com.octalsystems.votehub.v1.dto.LoginResponseDTO;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.MacAlgorithm;
 import lombok.AllArgsConstructor;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 
 @Component
@@ -24,24 +21,21 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 public class JwtService {
+    private static final String JWT_BEARER = "Bearer ";
+    private static final String JWT_AUTHORIZATION = "Authorization";
+    private static final long EXPIRATION_MILLIS = 240000L;
+    private static final MacAlgorithm signatureAlgorithm = Jwts.SIG.HS256;
+    private final SecretKey secretKey;
 
-    private static String JWT_BEARER = "Bearer ";
-    private static String JWT_AUTHORIZATION = "Authorization";
+    public JwtService(@Value("${jwt.secret}") String secretKey) { //construtor
+        this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
 
-    @Value("${jwt.secret}")
-    private final String secretKey;
+    public LoginResponseDTO generateToken(String email, String role, String id, String issuer) {
+        Date now = new Date();
+        Date limit = new Date(now.getTime() + EXPIRATION_MILLIS);
 
-    public LoginResponseDTO generateToken(String email, String role, String id, String issuer, long ttlMillis) {
-        MacAlgorithm signatureAlgorithm = Jwts.SIG.HS256;
-
-        long nowMillis = System.currentTimeMillis();
-        Date now = new Date(nowMillis);
-
-        Date limit = new Date();
-
-        SecretKey key = Keys.hmacShaKeyFor(getSecretKey().getBytes(StandardCharsets.UTF_8));
-
-        JwtBuilder token = Jwts.builder()
+        String token = Jwts.builder()
                 .header().add("typ","JWT").and()
                 .id(id)
                 .issuedAt(now)
@@ -49,15 +43,10 @@ public class JwtService {
                 .subject(email)
                 .issuer(issuer)
                 .claim("role", role)
-                .signWith(key, signatureAlgorithm);
+                .signWith(secretKey, signatureAlgorithm)
+                .compact();
 
-        if (ttlMillis >= 0) {
-            long expMillis = nowMillis + ttlMillis;
-            Date exp = new Date(expMillis);
-            token.expiration(exp);
-        }
-
-        return new LoginResponseDTO(token.compact());
+        return new LoginResponseDTO(token, "Bearer", limit.getTime());
     }
 
 }
