@@ -32,7 +32,7 @@ public class JwtService {
                 .id(id)
                 .issuedAt(now)
                 .expiration(limit)
-                .subject(email)
+                .subject(email) //fixme: adicionar o id do cliente também, não apenas o email.
                 .issuer(issuer)
                 .claim("role", role)
                 .signWith(secretKey, signatureAlgorithm)
