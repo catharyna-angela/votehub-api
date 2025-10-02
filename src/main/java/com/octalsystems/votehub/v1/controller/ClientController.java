@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,6 +27,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('CLIENT') AND #id == authentication.principal.id")
     ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UpdateClientDTO updateClientDTO){
         clientService.update(id, ClientMapper.toClient(updateClientDTO));
         return ResponseEntity.status(HttpStatus.OK).build(); //passar como resposta um feedback de que a conta foi atualizada.
