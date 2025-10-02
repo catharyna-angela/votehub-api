@@ -4,6 +4,7 @@ import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Client save(Client createClientDTO) {
+        createClientDTO.setPassword(passwordEncoder.encode(createClientDTO.getPassword()));
         clientRepository.save(createClientDTO);
         log.info("'Cliente criado.'");
 
@@ -23,7 +26,7 @@ public class ClientService {
     }
 
     @Transactional
-    public void update(Long id, Client updateClientDTO) { //extrair o id do cliente pelo token e sobrescrever os dados do DTO para os dados do cliente no banco.
+    public void update(Long id, Client updateClientDTO) {
         try {
             Client existingClient = clientRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Id do cliente está incorreto ou não existe."));
