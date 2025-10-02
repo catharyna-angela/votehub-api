@@ -34,7 +34,7 @@ public class AuthService {
                     userDetails.getUsername(),
                     userDetails.getRole(),
                     String.valueOf(userDetails.getId()),
-                    "/api/v1/auth/login"
+                    "votehub-api"
             );
 
         } catch (Exception ex) {
