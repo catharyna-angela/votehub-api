@@ -1,4 +1,4 @@
-package com.octalsystems.votehub.v1.dto;
+package com.octalsystems.votehub.v1.dto.client;
 
 import lombok.*;
 

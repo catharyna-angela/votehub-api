@@ -1,7 +1,7 @@
 package com.octalsystems.votehub.v1.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.octalsystems.votehub.v1.utils.SchemeType;
+import com.octalsystems.votehub.v1.enums.SchemeType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

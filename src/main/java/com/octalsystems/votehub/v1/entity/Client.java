@@ -1,6 +1,6 @@
 package com.octalsystems.votehub.v1.entity;
 
-import com.octalsystems.votehub.v1.utils.Roles;
+import com.octalsystems.votehub.v1.enums.Roles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.octalsystems.votehub.v1.controller;
 
-import com.octalsystems.votehub.v1.dto.LoginDTO;
-import com.octalsystems.votehub.v1.dto.LoginResponseDTO;
+import com.octalsystems.votehub.v1.dto.auth.LoginDTO;
+import com.octalsystems.votehub.v1.dto.auth.LoginResponseDTO;
 import com.octalsystems.votehub.v1.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

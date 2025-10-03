@@ -1,4 +1,4 @@
-package com.octalsystems.votehub.v1.dto;
+package com.octalsystems.votehub.v1.dto.client;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class CreateClientDTO {
-
     @NotBlank
     @Email(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Insira um e-mail válido.")
     private String email;
