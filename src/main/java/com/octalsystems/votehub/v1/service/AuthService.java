@@ -1,7 +1,7 @@
 package com.octalsystems.votehub.v1.service;
 
-import com.octalsystems.votehub.v1.dto.LoginDTO;
-import com.octalsystems.votehub.v1.dto.LoginResponseDTO;
+import com.octalsystems.votehub.v1.dto.auth.LoginDTO;
+import com.octalsystems.votehub.v1.dto.auth.LoginResponseDTO;
 import com.octalsystems.votehub.v1.jwt.JwtService;
 import com.octalsystems.votehub.v1.jwt.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,9 @@ public class AuthService {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
             return jwtService.generateToken(
-                    userDetails.getUsername(),
                     userDetails.getRole(),
                     String.valueOf(userDetails.getId()),
+                    userDetails.getUsername(),
                     "votehub-api"
             );
 
