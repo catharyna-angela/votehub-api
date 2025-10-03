@@ -28,6 +28,8 @@ public class AuthService {
                     )
             );
 
+            log.info("'Usuário autenticado com sucesso.'");
+
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
             return jwtService.generateToken(
