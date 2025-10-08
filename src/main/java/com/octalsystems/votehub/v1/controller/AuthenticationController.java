@@ -19,10 +19,17 @@ public class AuthController {
 
     private final AuthService authService;
 
-//    @PostMapping("/activation")
-//    ResponseEntity<Void> accountValidation(){
-//
-//    }
+    @PostMapping("/activation")
+    ResponseEntity<Void> activation(@RequestBody String codeDTO){
+        authService.activation(codeDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("/resend-activation")
+    ResponseEntity<Void> resend(@RequestBody String emailDTO){
+        authService.resend(emailDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
     @PostMapping("/login")
     ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO){

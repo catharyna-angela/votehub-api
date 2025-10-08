@@ -17,6 +17,7 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @Transactional
     public Client save(Client client) {
@@ -29,6 +30,9 @@ public class ClientService {
         client.setPassword(passwordEncoder.encode(client.getPassword()));
         clientRepository.save(client);
         log.info("'Cliente criado.'");
+
+        emailService.enviarToken(client.getEmail(), "123456");
+        log.info("'E-mail com token para ativação de conta enviado com sucesso.'");
 
         return client;
     }
