@@ -31,7 +31,14 @@ public class ClientService {
         clientRepository.save(client);
         log.info("'Cliente criado.'");
 
-        emailService.enviarToken(client.getEmail(), "123456");
+        try {
+            emailService.enviarToken(client.getEmail(), "123456");
+
+        } catch (Exception ex) {
+            log.error("Erro ao enviar e-mail com token de ativação de conta para: {}", client.getEmail());
+            throw new RuntimeException(ex);
+        }
+
         log.info("'E-mail com token para ativação de conta enviado com sucesso.'");
 
         return client;
@@ -47,12 +54,13 @@ public class ClientService {
             existingClient.setEmail(updateClientDTO.getEmail());
 
             clientRepository.save(existingClient);
-            log.info("'Cliente atualizado com sucesso.'");
 
         } catch (Exception ex) {
             log.error("'Não foi possível atualizar o nome ou e-mail do cliente: {}'", ex.getMessage());
             throw ex;
         }
+
+        log.info("'Cliente atualizado com sucesso.'");
     }
 
 }
