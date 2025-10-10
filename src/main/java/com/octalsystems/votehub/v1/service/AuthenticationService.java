@@ -1,11 +1,13 @@
 package com.octalsystems.votehub.v1.service;
 
-import com.octalsystems.votehub.v1.dto.auth.LoginDTO;
-import com.octalsystems.votehub.v1.dto.auth.LoginResponseDTO;
+import com.octalsystems.votehub.v1.dto.authentication.AccountActivationDTO;
+import com.octalsystems.votehub.v1.dto.authentication.LoginDTO;
+import com.octalsystems.votehub.v1.dto.authentication.LoginResponseDTO;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.jwt.JwtService;
 import com.octalsystems.votehub.v1.jwt.UserDetailsImpl;
 import com.octalsystems.votehub.v1.repository.ClientRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,16 +15,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthenticationService {
 
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final Client client;
     private final ClientRepository clientRepository;
 
     public LoginResponseDTO authenticate(LoginDTO loginDTO) {
@@ -50,12 +49,21 @@ public class AuthService {
         }
     }
 
-    public void activation(String code) { //valida código recebido do cliente para ativar a conta
-        if (!code.equals("123456")) { //se o código recebido não for igual, lança um erro
-            throw new IllegalArgumentException("'Código fornecido não confere.'");
+    @Transactional
+    public void activation(AccountActivationDTO accountActivationDTO) {
+        Client client = clientRepository.findByEmail(accountActivationDTO.getEmail())
+                .orElseThrow(() -> {
+                    log.error("'E-mail de usuário inserido incorretamente ou não existe.'");
+                    return new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
+                });
+
+        if (!accountActivationDTO.getCode().equals("123456")) {
+            log.error("'Código de ativação de conta não confere.'");
+            throw new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
         }
-        client.setActive(true);//consultar o cliente no banco e setar.
-        log.info("'Validação de conta realizada com sucesso.'");
+
+        client.setActivated(true);
+        log.info("'Conta ativada com sucesso.'");
 
     }
 
@@ -65,5 +73,5 @@ public class AuthService {
 //        if (accountExists.isPresent()) {
 //
 //        }
-//    }
+
 }

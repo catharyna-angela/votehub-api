@@ -19,7 +19,6 @@ import java.util.Objects;
 @Table(name = "clientes")
 @NoArgsConstructor
 public class Client {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -38,8 +37,8 @@ public class Client {
     @Column(name = "perfil", nullable = false)
     private Roles role = Roles.ROLE_CLIENT;
 
-    @Column(name = "validado", nullable = false)
-    private boolean validated = false;
+    @Column(name = "conta_ativada", nullable = false)
+    private boolean activated = false;
 
     @CreatedDate
     @Column(name = "data_criacao")

@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+//@ToString fixme: evitar toString automático em DTOs que contenham campos sensíveis como senhas
 public class LoginDTO {
     @NotBlank
     @Email(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Insira um e-mail válido.")

@@ -1,8 +1,9 @@
 package com.octalsystems.votehub.v1.controller;
 
-import com.octalsystems.votehub.v1.dto.auth.LoginDTO;
-import com.octalsystems.votehub.v1.dto.auth.LoginResponseDTO;
-import com.octalsystems.votehub.v1.service.AuthService;
+import com.octalsystems.votehub.v1.dto.authentication.AccountActivationDTO;
+import com.octalsystems.votehub.v1.dto.authentication.LoginDTO;
+import com.octalsystems.votehub.v1.dto.authentication.LoginResponseDTO;
+import com.octalsystems.votehub.v1.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,25 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class AuthenticationController {
 
-    private final AuthService authService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/activation")
-    ResponseEntity<Void> activation(@RequestBody String codeDTO){
-        authService.activation(codeDTO);
+    ResponseEntity<Void> activation(@RequestBody AccountActivationDTO accountActivationDTO){
+        authenticationService.activation(accountActivationDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/resend-activation")
-    ResponseEntity<Void> resend(@RequestBody String emailDTO){
-        authService.resend(emailDTO);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+//    @PostMapping("/resend-activation")
+//    ResponseEntity<Void> resend(@RequestBody String emailDTO){
+//        authService.resend(emailDTO);
+//        return ResponseEntity.status(HttpStatus.OK).build();
+//    }
 
     @PostMapping("/login")
     ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO){
-        LoginResponseDTO loginResponseDTO = authService.authenticate(loginDTO);
+        LoginResponseDTO loginResponseDTO = authenticationService.authenticate(loginDTO);
         return ResponseEntity.status(HttpStatus.OK).body(loginResponseDTO);
     }
 }
