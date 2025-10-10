@@ -3,17 +3,18 @@ package com.octalsystems.votehub.v1.service;
 import com.octalsystems.votehub.v1.dto.authentication.AccountActivationDTO;
 import com.octalsystems.votehub.v1.dto.authentication.LoginDTO;
 import com.octalsystems.votehub.v1.dto.authentication.LoginResponseDTO;
+import com.octalsystems.votehub.v1.dto.authentication.ResendEmailDTO;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.jwt.JwtService;
 import com.octalsystems.votehub.v1.jwt.UserDetailsImpl;
 import com.octalsystems.votehub.v1.repository.ClientRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -23,6 +24,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final ClientRepository clientRepository;
+    private final EmailService emailService;
 
     public LoginResponseDTO authenticate(LoginDTO loginDTO) {
         try {
@@ -64,14 +66,23 @@ public class AuthenticationService {
 
         client.setActivated(true);
         log.info("'Conta ativada com sucesso.'");
-
     }
 
-//    public void resend(String emailDTO) {
-//        Optional<Client> accountExists = clientRepository.findByEmail(emailDTO);
-//
-//        if (accountExists.isPresent()) {
-//
-//        }
+    @Transactional(readOnly = true)
+    public void resend(ResendEmailDTO resendEmailDTO) {
+        Client client = clientRepository.findByEmail(resendEmailDTO.getEmail())
+                .orElseThrow(() -> {
+                    log.error("'E-mail não existe ou foi inserido incorretamente.'");
+                    return new RuntimeException("'Não foi possível reenviar o e-mail para ativação de conta, tente novamente.'");
+                });
+
+        if (client.isActivated()) {
+            log.error("'Cliente já tem a conta ativada.'");
+            throw new RuntimeException("'Não foi possível reenviar o e-mail para ativação de conta.'");
+        }
+
+        emailService.enviarToken(resendEmailDTO.getEmail(), "123456");
+        log.info("'E-mail com novo token para ativação de conta reenviado com sucesso.'");
+    }
 
 }

@@ -3,6 +3,7 @@ package com.octalsystems.votehub.v1.controller;
 import com.octalsystems.votehub.v1.dto.authentication.AccountActivationDTO;
 import com.octalsystems.votehub.v1.dto.authentication.LoginDTO;
 import com.octalsystems.votehub.v1.dto.authentication.LoginResponseDTO;
+import com.octalsystems.votehub.v1.dto.authentication.ResendEmailDTO;
 import com.octalsystems.votehub.v1.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,16 +22,16 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/activation")
-    ResponseEntity<Void> activation(@RequestBody AccountActivationDTO accountActivationDTO){
+    ResponseEntity<Void> activation(@RequestBody @Valid AccountActivationDTO accountActivationDTO){
         authenticationService.activation(accountActivationDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-//    @PostMapping("/resend-activation")
-//    ResponseEntity<Void> resend(@RequestBody String emailDTO){
-//        authService.resend(emailDTO);
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
+    @PostMapping("/resend-activation")
+    ResponseEntity<Void> resend(@RequestBody @Valid ResendEmailDTO resendEmailDTO){
+        authenticationService.resend(resendEmailDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
     @PostMapping("/login")
     ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO){
