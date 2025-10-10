@@ -20,7 +20,6 @@ import java.util.Objects;
 @Setter
 @Getter
 public abstract class Scheme {
-
     @Id
     @SequenceGenerator(name = "esquemas_seq", sequenceName = "esquemas_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "esquemas_seq")
@@ -47,7 +46,7 @@ public abstract class Scheme {
     private boolean generateQrcode = false; //se true, a url será convertida em imagem qrcode.
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_esquema", nullable = false)
+    @Column(name = "tipo_de_esquema", nullable = false)
     private SchemeType schemeType;
 
 //    @OneToMany
@@ -59,11 +58,11 @@ public abstract class Scheme {
 //    Client client;
 
     @CreatedDate
-    @Column(name = "data_criacao")
+    @Column(name = "data_de_criacao")
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(name = "data_modificacao")
+    @Column(name = "data_de_modificacao")
     private LocalDateTime modifiedDate;
 
     @Override
