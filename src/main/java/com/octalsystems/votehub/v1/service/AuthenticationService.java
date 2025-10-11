@@ -39,6 +39,11 @@ public class AuthenticationService {
 
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
+            if (!userDetails.isAccountActivated()) {
+                log.error("'Conta de usuário ainda não foi ativada.'");
+                throw new RuntimeException("'Não foi possível fazer o login.'");
+            }
+
             return jwtService.generateToken(
                     userDetails.getRole(),
                     String.valueOf(userDetails.getId()),
