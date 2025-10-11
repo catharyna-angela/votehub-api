@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST, "/api/v1/clients").permitAll()
                         .requestMatchers(
-                                HttpMethod.POST, "/api/v1/auth/login").permitAll()
+                                HttpMethod.POST, "/api/v1/auth/**").permitAll()
                         .requestMatchers(
                                 "/h2-console/**").permitAll()
                         .requestMatchers(
@@ -48,20 +48,20 @@ public class SpringSecurityConfig {
                 )
                 .sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(daoAuthProvider())
+//                .authenticationProvider(daoAuthProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
 
     }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsServiceImpl);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
+//    @Bean
+//    public DaoAuthenticationProvider daoAuthProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailsServiceImpl);
+//        provider.setPasswordEncoder(passwordEncoder());
+//        return provider;
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
