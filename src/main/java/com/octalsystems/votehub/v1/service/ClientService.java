@@ -24,7 +24,8 @@ public class ClientService {
         Optional<Client> emailExists = clientRepository.findByEmail(client.getEmail());
 
         if (emailExists.isPresent()) {
-            throw new IllegalArgumentException("'Usuário já existe com o mesmo e-mail.'");
+            log.error("'Usuário já existe com o mesmo e-mail.'");
+            throw new IllegalArgumentException("'Não foi possível concluir o cadastro de conta.'");
         }
 
         client.setPassword(passwordEncoder.encode(client.getPassword()));
@@ -45,19 +46,19 @@ public class ClientService {
     }
 
     @Transactional
-    public void update(Long id, Client updateClientDTO) {
+    public void update(Long id, Client client) { //fixme: extrair o id do token JWT
         try {
             Client existingClient = clientRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("'Id do cliente está incorreto ou não existe.'"));
 
-            existingClient.setName(updateClientDTO.getName());
-            existingClient.setEmail(updateClientDTO.getEmail());
+            existingClient.setName(client.getName());
+            existingClient.setEmail(client.getEmail());
 
             clientRepository.save(existingClient);
 
         } catch (Exception ex) {
-            log.error("'Não foi possível atualizar o nome ou e-mail do cliente: {}'", ex.getMessage());
-            throw ex;
+            log.error("'Não foi possível atualizar o nome ou e-mail do cliente.'");
+            throw new RuntimeException("'Não foi possível atualizar dados do cliente.'");
         }
 
         log.info("'Cliente atualizado com sucesso.'");
