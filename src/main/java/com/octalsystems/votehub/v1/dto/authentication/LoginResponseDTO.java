@@ -1,4 +1,4 @@
-package com.octalsystems.votehub.v1.dto.auth;
+package com.octalsystems.votehub.v1.dto.authentication;
 
 import lombok.*;
 
@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class LoginResponseDTO {
     private String token;
     private String tokenType;
