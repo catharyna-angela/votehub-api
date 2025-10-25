@@ -26,10 +26,11 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ClientMapper.toResponseCreateClientDTO(client));
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('CLIENT') AND #id == authentication.principal.id")
-    ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UpdateClientDTO updateClientDTO){
-        clientService.update(id, ClientMapper.toClient(updateClientDTO));
+    @PutMapping
+    @PreAuthorize("hasRole('CLIENT')")
+    ResponseEntity<Void> update(@Valid @RequestBody UpdateClientDTO updateClientDTO){
+        clientService.update(updateClientDTO);
+//        clientService.update(ClientMapper.toClient(updateClientDTO));
         return ResponseEntity.status(HttpStatus.OK).build(); //passar como resposta um feedback de que a conta foi atualizada.
     }
 

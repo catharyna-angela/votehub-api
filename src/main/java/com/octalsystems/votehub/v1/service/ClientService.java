@@ -1,5 +1,6 @@
 package com.octalsystems.votehub.v1.service;
 
+import com.octalsystems.votehub.v1.dto.client.UpdateClientDTO;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,9 +47,9 @@ public class ClientService {
     }
 
     @Transactional
-    public void update(Long id, Client client) { //fixme: extrair o id do token JWT
+    public void update(UpdateClientDTO client) {
         try {
-            Client existingClient = clientRepository.findById(id)
+            Client existingClient = clientRepository.findByEmail(client.getEmail())
                     .orElseThrow(() -> new RuntimeException("'Id do cliente está incorreto ou não existe.'"));
 
             existingClient.setName(client.getName());

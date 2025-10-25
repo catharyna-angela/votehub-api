@@ -29,11 +29,6 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(client.getRole().name()));
-    }
-
-    @Override
     public String getPassword() {
         return client.getPassword();
     }
@@ -41,6 +36,11 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getUsername() {
         return client.getEmail();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(client.getRole().name()));
     }
 
     @Override
