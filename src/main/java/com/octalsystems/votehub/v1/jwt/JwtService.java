@@ -1,6 +1,6 @@
 package com.octalsystems.votehub.v1.jwt;
 
-import com.octalsystems.votehub.v1.dto.auth.LoginResponseDTO;
+import com.octalsystems.votehub.v1.dto.authentication.LoginResponseDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.MacAlgorithm;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class JwtService {
-    private static final long EXPIRATION_MILLIS = 240000L;
+    private static final long EXPIRATION_MILLIS = 600000L;
     private static final MacAlgorithm signatureAlgorithm = Jwts.SIG.HS256;
     private final SecretKey secretKey;
 
