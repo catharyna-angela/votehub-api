@@ -1,11 +1,16 @@
 package com.octalsystems.votehub.v1.controller;
 
+import com.octalsystems.votehub.v1.dto.mapper.VotingMapper;
+import com.octalsystems.votehub.v1.dto.voting.ResponseCreateVotingDTO;
+import com.octalsystems.votehub.v1.dto.voting.CreateVotingDTO;
 import com.octalsystems.votehub.v1.entity.Voting;
+import com.octalsystems.votehub.v1.jwt.UserDetailsImpl;
 import com.octalsystems.votehub.v1.service.VotingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +22,10 @@ public class VotingController {
 
     @PostMapping
     @PreAuthorize("hasRole('CLIENT')")
-    public ResponseEntity<Voting> create(@RequestBody Voting votingCreateDTO){
-        Voting voting = votingService.save(votingCreateDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(voting);
+    public ResponseEntity<ResponseCreateVotingDTO> create(@RequestBody CreateVotingDTO createVotingDTO,
+                                                          @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Voting voting = votingService.save(VotingMapper.toVoting(createVotingDTO), userDetails.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(VotingMapper.toResponseCreateVotingDTO(voting));
     }
 
     @PutMapping("/{id}")

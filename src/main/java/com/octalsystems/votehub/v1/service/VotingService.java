@@ -1,8 +1,10 @@
 package com.octalsystems.votehub.v1.service;
 
+import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.entity.Voting;
-import com.octalsystems.votehub.v1.repository.VotingRepository;
 import com.octalsystems.votehub.v1.enums.SchemeType;
+import com.octalsystems.votehub.v1.repository.ClientRepository;
+import com.octalsystems.votehub.v1.repository.VotingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,14 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class VotingService {
 
     private final VotingRepository votingRepository;
+    private final ClientRepository clientRepository;
 
     @Transactional
-    public Voting save(Voting createVotingDTO) {
-        createVotingDTO.setSchemeType(SchemeType.VOTACAO);
-        votingRepository.save(createVotingDTO);
+    public Voting save(Voting voting, Long clientId) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new RuntimeException("'Cliente não encontrado.'"));
+
+        voting.setSchemeType(SchemeType.VOTACAO);
+        voting.setClient(client);
+
+        votingRepository.save(voting);
         log.info("'Votação criada.'");
 
-        return createVotingDTO;
+        return voting;
     }
 
     @Transactional
