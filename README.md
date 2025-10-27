@@ -1,10 +1,10 @@
 # Projeto VoteHub
 ![GitHub License](https://img.shields.io/github/license/catharyna-angela/votehub-api)
-![Versão](https://img.shields.io/badge/version-0.11.3-blue.svg)
+![Versão](https://img.shields.io/badge/version-0.12.3-blue.svg)
 
 VoteHub é uma API RESTful autoral desenvolvida em Java 17, projetada inicialmente para permitir a criação, customização, disponibilidade e gerenciamento de votações e enquetes.
 
-O projeto tem como objetivo de continuar evoluindo e incorporando novos outros métodos de decisão, recursos de auditoria e análise dos dados coletados.
+O projeto tem como objetivo de continuar evoluindo e incorporando novos outros métodos de decisão, recursos de auditoria e métricas dos dados coletados.
 
 ## Pré-requisitos
 - [MySQL Workbench 8.0](https://dev.mysql.com/downloads/workbench)
