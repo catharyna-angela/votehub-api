@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +40,14 @@ public class Client {
 
     @Column(name = "conta_ativada", nullable = false)
     private boolean activated = false;
+
+    @OneToMany(mappedBy = "client")
+    @Column(name = "votacoes")
+    private List<Voting> votings;
+
+    @OneToMany(mappedBy = "client")
+    @Column(name = "enquetes")
+    private List<Poll> polls;
 
     @CreatedDate
     @Column(name = "data_criacao")

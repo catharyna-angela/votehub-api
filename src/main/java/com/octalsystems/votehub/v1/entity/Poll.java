@@ -1,8 +1,6 @@
 package com.octalsystems.votehub.v1.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +11,10 @@ import lombok.Setter;
 @Table(name = "enquetes")
 @NoArgsConstructor
 public class Poll extends Scheme {
-
     @Column(name = "multipla_escolha", nullable = false)
     private boolean multipleChoice;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 }
