@@ -6,6 +6,7 @@ import com.octalsystems.votehub.v1.dto.voting.CreateVotingDTO;
 import com.octalsystems.votehub.v1.entity.Voting;
 import com.octalsystems.votehub.v1.jwt.UserDetailsImpl;
 import com.octalsystems.votehub.v1.service.VotingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class VotingController {
 
     @PostMapping
     @PreAuthorize("hasRole('CLIENT')")
-    public ResponseEntity<ResponseCreateVotingDTO> create(@RequestBody CreateVotingDTO createVotingDTO,
+    public ResponseEntity<ResponseCreateVotingDTO> create(@Valid @RequestBody CreateVotingDTO createVotingDTO,
                                                           @AuthenticationPrincipal UserDetailsImpl userDetails){
         Voting voting = votingService.save(VotingMapper.toVoting(createVotingDTO), userDetails.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(VotingMapper.toResponseCreateVotingDTO(voting));

@@ -1,11 +1,12 @@
 package com.octalsystems.votehub.v1.dto.voting;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -20,8 +21,8 @@ public class CreateVotingDTO {
     @NotBlank
     private String description;
 
-    @NotBlank
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") //fixme: mudar para dia, mes, ano
+    @NotNull(message = "A data e hora de expiração é obrigatória.")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expirationDate;
 
     private boolean generateQrcode;
