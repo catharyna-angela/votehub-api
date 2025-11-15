@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -17,4 +19,9 @@ public class Voting extends Scheme {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @OneToMany(mappedBy = "voting", cascade = CascadeType.ALL)
+    @Column(name = "candidatos_voto")
+    private List<Candidate> candidates;
+
 }
