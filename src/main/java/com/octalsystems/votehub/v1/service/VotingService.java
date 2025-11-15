@@ -1,5 +1,6 @@
 package com.octalsystems.votehub.v1.service;
 
+import com.octalsystems.votehub.v1.entity.Candidate;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.entity.Voting;
 import com.octalsystems.votehub.v1.enums.SchemeType;
@@ -26,6 +27,12 @@ public class VotingService {
         voting.setSchemeType(SchemeType.VOTACAO);
         voting.setClient(client);
 
+        if (voting.getCandidates() != null) {
+            for (Candidate candidate : voting.getCandidates()) {
+                candidate.setVoting(voting);
+            }
+        }
+
         votingRepository.save(voting);
         log.info("'Votação criada.'");
 
@@ -33,7 +40,7 @@ public class VotingService {
     }
 
     @Transactional
-    public void update(Long id, Voting updateVotingDTO) {
+    public void update(Long id, Voting updateVotingDTO, Long clientId) { //permitir atualizar votação se não houver nenhum voto.
         try {
             Voting existingVoting = votingRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Id da votação está incorreto ou não existe."));
