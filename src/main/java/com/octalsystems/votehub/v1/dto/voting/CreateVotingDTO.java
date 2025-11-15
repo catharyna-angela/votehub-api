@@ -1,6 +1,7 @@
 package com.octalsystems.votehub.v1.dto.voting;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.octalsystems.votehub.v1.dto.candidate.CreateCandidatesDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,5 +30,8 @@ public class CreateVotingDTO {
     private boolean generateQrcode;
 
     private boolean justify;
+
+    @NotNull(message = "É necessário adicionar os candidatos.")
+    private List<CreateCandidatesDTO> candidates;
 
 }

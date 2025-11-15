@@ -1,9 +1,14 @@
 package com.octalsystems.votehub.v1.dto.voting;
 
+import com.octalsystems.votehub.v1.dto.candidate.ResponseCandidatesDTO;
 import com.octalsystems.votehub.v1.enums.SchemeType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -19,4 +24,5 @@ public class ResponseCreateVotingDTO {
     private boolean justify;
     private SchemeType schemeType;
     private LocalDateTime createdDate;
+    private List<ResponseCandidatesDTO> candidates;
 }
