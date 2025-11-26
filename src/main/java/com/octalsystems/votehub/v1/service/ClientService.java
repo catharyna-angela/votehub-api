@@ -1,6 +1,5 @@
 package com.octalsystems.votehub.v1.service;
 
-import com.octalsystems.votehub.v1.dto.client.UpdateClientDTO;
 import com.octalsystems.votehub.v1.entity.Client;
 import com.octalsystems.votehub.v1.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,13 +46,18 @@ public class ClientService {
     }
 
     @Transactional
-    public void update(UpdateClientDTO client) {
+    public void update(Client client, String email) {
         try {
-            Client existingClient = clientRepository.findByEmail(client.getEmail())
+            Client existingClient = clientRepository.findByEmail(email)
                     .orElseThrow(() -> new RuntimeException("'Id do cliente está incorreto ou não existe.'"));
 
-            existingClient.setName(client.getName());
-            existingClient.setEmail(client.getEmail());
+            if (client.getName() != null && !client.getName().isBlank()) {
+                existingClient.setName(client.getName());
+            }
+
+            if (client.getEmail() != null && !client.getEmail().isBlank()) {
+                existingClient.setEmail(client.getEmail());
+            }
 
             clientRepository.save(existingClient);
 
