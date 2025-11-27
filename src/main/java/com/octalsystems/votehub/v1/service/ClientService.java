@@ -33,7 +33,7 @@ public class ClientService {
         log.info("'Cliente criado.'");
 
         try {
-            emailService.enviarToken(client.getEmail(), "123456");
+            emailService.sendCode(client.getEmail());
 
         } catch (Exception ex) {
             log.error("Erro ao enviar e-mail com token de ativação de conta para: {}", client.getEmail());

@@ -64,7 +64,7 @@ public class AuthenticationService {
                     return new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
                 });
 
-        if (!accountActivationDTO.getCode().equals("123456")) {
+        if (!accountActivationDTO.getCode().equals("123456")) { //fixme: comparar o token recebido com o token enviado por e-mail
             log.error("'Código de ativação de conta não confere.'");
             throw new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
         }
@@ -86,7 +86,7 @@ public class AuthenticationService {
             throw new RuntimeException("'Não foi possível reenviar o e-mail para ativação de conta.'");
         }
 
-        emailService.enviarToken(resendEmailDTO.getEmail(), "123456");
+        emailService.sendCode(resendEmailDTO.getEmail());
         log.info("'E-mail com novo token para ativação de conta reenviado com sucesso.'");
     }
 
