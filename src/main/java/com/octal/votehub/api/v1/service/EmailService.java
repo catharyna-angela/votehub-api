@@ -11,19 +11,15 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     private final JavaMailSender mailSender;
-    private final CodeService codeService;
-    private final String generatedCode = CodeService.generateCode();
 
     @Async
-    public void sendCode(String recipient) {
+    public void sendCode(String recipient, String generatedCode) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(recipient);
         message.setSubject("Código de ativação de conta");
         message.setText("Seu código de ativação é: " + generatedCode);
 
         mailSender.send(message);
-        codeService.saveActivationCode(generatedCode);
-
     }
 
 }
