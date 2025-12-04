@@ -18,6 +18,7 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final CodeService codeService;
 
     @Transactional
     public Client save(Client client) {
@@ -33,7 +34,8 @@ public class ClientService {
         log.info("'Cliente criado.'");
 
         try {
-            emailService.sendCode(client.getEmail());
+            String code = codeService.generateAndSaveCode();
+            emailService.sendCode(client.getEmail(), code); //refatorar
 
         } catch (Exception ex) {
             log.error("Erro ao enviar e-mail com token de ativação de conta para: {}", client.getEmail());
