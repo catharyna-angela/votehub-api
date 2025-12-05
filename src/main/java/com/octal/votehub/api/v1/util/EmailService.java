@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.service;
+package com.octal.votehub.api.v1.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;

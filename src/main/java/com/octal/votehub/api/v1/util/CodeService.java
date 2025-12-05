@@ -12,12 +12,11 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class CodeService {
+    private static final String CHARACTERS = "ACDEHJLMRSTV0123456789";
+    private static final long EXPIRATION_SECONDS = 600L; //10 minutos
+    private static final SecureRandom random = new SecureRandom();
 
     private final CodeRepository codeRepository;
-
-    private static final String CHARACTERS = "ACDEHJLMRSTV0123456789";
-    private static final long EXPIRATION_SECONDS = 120L; //2 minutos
-    private static final SecureRandom random = new SecureRandom();
 
     private String generate() {
         StringBuilder sb = new StringBuilder(6);
