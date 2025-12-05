@@ -1,7 +1,9 @@
-package com.octal.votehub.api.v1.service;
+package com.octal.votehub.api.v1.service.impl;
 
 import com.octal.votehub.api.v1.entity.Client;
 import com.octal.votehub.api.v1.repository.ClientRepository;
+import com.octal.votehub.api.v1.util.CodeService;
+import com.octal.votehub.api.v1.util.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,7 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ClientService {
+public class ClientServiceImpl {
 
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
@@ -34,7 +36,7 @@ public class ClientService {
         log.info("'Cliente criado.'");
 
         try {
-            String code = codeService.generateAndSaveCode();
+            String code = codeService.generateAndSave();
             emailService.sendCode(client.getEmail(), code); //refatorar
 
         } catch (Exception ex) {

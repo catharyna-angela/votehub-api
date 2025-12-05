@@ -8,6 +8,8 @@ import com.octal.votehub.api.v1.entity.Client;
 import com.octal.votehub.api.v1.jwt.JwtService;
 import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.repository.ClientRepository;
+import com.octal.votehub.api.v1.util.CodeService;
+import com.octal.votehub.api.v1.util.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +27,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final ClientRepository clientRepository;
     private final EmailService emailService;
+    private final CodeService codeService;
 
     public LoginResponseDTO authenticate(LoginDTO loginDTO) {
         try {
@@ -64,16 +67,18 @@ public class AuthenticationService {
                     return new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
                 });
 
-        if (!accountActivationDTO.getCode().equals("123456")) { //fixme: comparar o token recebido com o token enviado por e-mail
-            log.error("'Código de ativação de conta não confere.'");
-            throw new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
+        if (client.isActivated()) {
+            log.error("'A conta do cliente já está ativa.'");
+            throw new RuntimeException("'Não foi possível ativar a conta.'");
         }
+
+        codeService.validate(accountActivationDTO.getCode());
 
         client.setActivated(true);
         log.info("'Conta ativada com sucesso.'");
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void resend(ResendEmailDTO resendEmailDTO) {
         Client client = clientRepository.findByEmail(resendEmailDTO.getEmail())
                 .orElseThrow(() -> {
@@ -86,7 +91,8 @@ public class AuthenticationService {
             throw new RuntimeException("'Não foi possível reenviar o e-mail para ativação de conta.'");
         }
 
-        emailService.sendCode(resendEmailDTO.getEmail());
+        String code = codeService.generateAndSave();
+        emailService.sendCode(resendEmailDTO.getEmail(), code);
         log.info("'E-mail com novo token para ativação de conta reenviado com sucesso.'");
     }
 

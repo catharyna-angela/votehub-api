@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.service;
+package com.octal.votehub.api.v1.util;
 
 import com.octal.votehub.api.v1.entity.Code;
 import com.octal.votehub.api.v1.repository.CodeRepository;
@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class CodeService {
 
-    private static final String CHARACTERS = "ACDEHJLMRSTV0123456789";
-    private static final long EXPIRATION_SECONDS = 600L; //10 minutos
-    private static final SecureRandom random = new SecureRandom();
-
     private final CodeRepository codeRepository;
 
-    private String generateCode() {
+    private static final String CHARACTERS = "ACDEHJLMRSTV0123456789";
+    private static final long EXPIRATION_SECONDS = 120L; //2 minutos
+    private static final SecureRandom random = new SecureRandom();
+
+    private String generate() {
         StringBuilder sb = new StringBuilder(6);
 
         for (int i = 0; i < 6; i++) {
@@ -30,8 +30,8 @@ public class CodeService {
     }
 
     @Transactional
-    public String generateAndSaveCode() {
-        String generatedCode = generateCode();
+    public String generateAndSave() {
+        String generatedCode = generate();
 
         Code code = new Code();
         code.setExpirationDate(LocalDateTime.now().plusSeconds(EXPIRATION_SECONDS));
@@ -40,6 +40,24 @@ public class CodeService {
         codeRepository.save(code);
 
         return generatedCode;
+    }
+
+    @Transactional(readOnly = true)
+    public void validate(String code){
+        Code codeIsPresent = codeRepository.findByCode(code)
+                .orElseThrow(() -> new RuntimeException("'O código recebido não está correto.'"));
+
+        isExpired(codeIsPresent);
+
+    }
+
+    private void isExpired(Code code){
+        LocalDateTime dateTimeNow = LocalDateTime.now();
+        LocalDateTime expiration = code.getExpirationDate();
+
+        if (dateTimeNow.isAfter(expiration)) {
+            throw new RuntimeException("'Código expirado.'");
+        }
     }
 
 }
