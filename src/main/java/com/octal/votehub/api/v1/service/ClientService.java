@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.service.impl;
+package com.octal.votehub.api.v1.service;
 
 import com.octal.votehub.api.v1.entity.Client;
 import com.octal.votehub.api.v1.repository.ClientRepository;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ClientServiceImpl {
+public class ClientService {
 
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
