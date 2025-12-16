@@ -3,6 +3,8 @@ package com.octal.votehub.api.v1.controller;
 import com.octal.votehub.api.v1.dto.mapper.VotingMapper;
 import com.octal.votehub.api.v1.dto.voting.CreateVotingDTO;
 import com.octal.votehub.api.v1.dto.voting.ResponseCreateVotingDTO;
+import com.octal.votehub.api.v1.dto.voting.ResponseUpdateVotingDTO;
+import com.octal.votehub.api.v1.dto.voting.UpdateVotingDTO;
 import com.octal.votehub.api.v1.entity.Voting;
 import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.service.VotingService;
@@ -29,12 +31,13 @@ public class VotingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(VotingMapper.toResponseCreateVotingDTO(voting));
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('CLIENT') AND #id == authentication.principal.id")
-    public ResponseEntity<Void> update(@PathVariable Long id,
-                                       @RequestBody Voting votingUpdateDTO, //fixme: criar DTO
-                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        votingService.update(id, votingUpdateDTO, userDetails.getId());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<ResponseUpdateVotingDTO> update(@PathVariable Long id,
+                                                          @RequestBody UpdateVotingDTO updateVotingDTO,
+                                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Voting voting = votingService.update(id ,VotingMapper.toVoting(updateVotingDTO), userDetails.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(VotingMapper.toResponseUpdateVotingDTO(voting));
     }
+
 }

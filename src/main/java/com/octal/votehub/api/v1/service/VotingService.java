@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -40,23 +42,30 @@ public class VotingService {
     }
 
     @Transactional
-    public void update(Long id, Voting updateVotingDTO, Long clientId) { //permitir atualizar votação se não houver nenhum voto.
+    public Voting update(Long votingId, Voting voting, Long clientId) {
+        Voting existingVoting = votingRepository.findById(votingId)
+                .orElseThrow(() -> new RuntimeException("Votação não existe ou o id está incorreto."));
+
         try {
-            Voting existingVoting = votingRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Id da votação está incorreto ou não existe."));
+            //validar se votação não obteve nenhum voto ainda, para então permitir a alteração.
+            Long getClientId = existingVoting.getClient().getId();
 
-            existingVoting.setTitle(updateVotingDTO.getTitle());
-            existingVoting.setDescription(updateVotingDTO.getDescription());
-            existingVoting.setExpirationDate(updateVotingDTO.getExpirationDate());
-            existingVoting.setGenerateQrcode(updateVotingDTO.isGenerateQrcode());
+            if (getClientId.equals(clientId)) {
+                existingVoting.setTitle(voting.getTitle());
+                existingVoting.setDescription(voting.getDescription());
+                existingVoting.setExpirationDate(voting.getExpirationDate());
+                existingVoting.setGenerateQrcode(voting.isGenerateQrcode());
 
-            votingRepository.save(existingVoting);
-            log.info("'Votação atualizada com sucesso.'");
+                votingRepository.save(existingVoting);
+                log.info("'Votação atualizada com sucesso.'");
+
+            }
 
         } catch (Exception ex) {
-            log.error("Erro ao atualizar votação: {}", ex.getMessage());
-            throw ex;
+            log.error("Não foi possível atualizar votação.");
+            throw new RuntimeException("Erro ao fazer update da votação.");
         }
 
+        return existingVoting;
     }
 }
