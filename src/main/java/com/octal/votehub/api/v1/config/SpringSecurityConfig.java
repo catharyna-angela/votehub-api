@@ -40,6 +40,10 @@ public class SpringSecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST, "/api/v1/auth/**").permitAll()
                         .requestMatchers(
+                                HttpMethod.GET, "/api/v1/schemes/voting/{id}").permitAll() //fixme: mudar id para token
+                        .requestMatchers(
+                                HttpMethod.POST, "/api/v1/schemes/voting/{id}").permitAll() //mudar id para token
+                        .requestMatchers(
                                 "/h2-console/**").permitAll()
                         .requestMatchers(
                                 "/actuator/**").permitAll()

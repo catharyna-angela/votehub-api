@@ -1,10 +1,7 @@
 package com.octal.votehub.api.v1.controller;
 
 import com.octal.votehub.api.v1.dto.mapper.VotingMapper;
-import com.octal.votehub.api.v1.dto.voting.CreateVotingDTO;
-import com.octal.votehub.api.v1.dto.voting.ResponseCreateVotingDTO;
-import com.octal.votehub.api.v1.dto.voting.ResponseUpdateVotingDTO;
-import com.octal.votehub.api.v1.dto.voting.UpdateVotingDTO;
+import com.octal.votehub.api.v1.dto.voting.*;
 import com.octal.votehub.api.v1.entity.Voting;
 import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.service.VotingService;
@@ -39,5 +36,16 @@ public class VotingController {
         Voting voting = votingService.update(id ,VotingMapper.toVoting(updateVotingDTO), userDetails.getId());
         return ResponseEntity.status(HttpStatus.OK).body(VotingMapper.toResponseUpdateVotingDTO(voting));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseVotingDTO> get(@PathVariable Long id){
+        Voting voting = votingService.findVoting(id) ;
+        return ResponseEntity.status(HttpStatus.OK).body(VotingMapper.toResponseVotingDTO(voting));
+    }
+
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<> vote(){
+//        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+//    }
 
 }

@@ -1,9 +1,6 @@
 package com.octal.votehub.api.v1.dto.mapper;
 
-import com.octal.votehub.api.v1.dto.voting.CreateVotingDTO;
-import com.octal.votehub.api.v1.dto.voting.ResponseCreateVotingDTO;
-import com.octal.votehub.api.v1.dto.voting.ResponseUpdateVotingDTO;
-import com.octal.votehub.api.v1.dto.voting.UpdateVotingDTO;
+import com.octal.votehub.api.v1.dto.voting.*;
 import com.octal.votehub.api.v1.entity.Voting;
 import org.modelmapper.ModelMapper;
 
@@ -27,4 +24,8 @@ public class VotingMapper {
         return mapper.map(voting, ResponseUpdateVotingDTO.class);
     }
 
+    public static ResponseVotingDTO toResponseVotingDTO(Voting voting) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(voting, ResponseVotingDTO.class);
+    }
 }
