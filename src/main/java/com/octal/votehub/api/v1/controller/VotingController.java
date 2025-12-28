@@ -1,7 +1,11 @@
 package com.octal.votehub.api.v1.controller;
 
+import com.octal.votehub.api.v1.dto.candidate.ChooseCandidateDTO;
+import com.octal.votehub.api.v1.dto.candidate.ResponseCandidateDTO;
+import com.octal.votehub.api.v1.dto.mapper.CandidateMapper;
 import com.octal.votehub.api.v1.dto.mapper.VotingMapper;
 import com.octal.votehub.api.v1.dto.voting.*;
+import com.octal.votehub.api.v1.entity.Candidate;
 import com.octal.votehub.api.v1.entity.Voting;
 import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.service.VotingService;
@@ -31,21 +35,23 @@ public class VotingController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<ResponseUpdateVotingDTO> update(@PathVariable Long id,
-                                                          @RequestBody UpdateVotingDTO updateVotingDTO,
+                                                          @Valid @RequestBody UpdateVotingDTO updateVotingDTO,
                                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Voting voting = votingService.update(id ,VotingMapper.toVoting(updateVotingDTO), userDetails.getId());
         return ResponseEntity.status(HttpStatus.OK).body(VotingMapper.toResponseUpdateVotingDTO(voting));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseVotingDTO> get(@PathVariable Long id){
+    public ResponseEntity<ResponseVotingDTO> get(@PathVariable Long id){ //fixme: gerar e passar token como parâmetro usando squids-java.
         Voting voting = votingService.findVoting(id) ;
         return ResponseEntity.status(HttpStatus.OK).body(VotingMapper.toResponseVotingDTO(voting));
     }
 
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<> vote(){
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//    }
+    @PostMapping("/{id}/vote")
+    public ResponseEntity<ResponseCandidateDTO> vote(@PathVariable Long id, //passar token no path.
+                                                     @Valid @RequestBody ChooseCandidateDTO chooseCandidateDTO){
+        Candidate candidate = votingService.vote(id, CandidateMapper.toCandidate(chooseCandidateDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(CandidateMapper.toResponseCandidateDTO(candidate));
+    }
 
 }
