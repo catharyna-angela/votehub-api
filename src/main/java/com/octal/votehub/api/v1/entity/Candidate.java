@@ -18,8 +18,6 @@ public class Candidate {
     @Column(name = "nome", nullable = false)
     private String name;
 
-    private boolean vote = false; //vai receber "true" quando for votado e em seguida incrementado em "totalVotes".
-
     //fixme: criar atributo "version".
 
     @Column(name = "total_de_votos")

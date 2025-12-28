@@ -36,11 +36,8 @@ public abstract class Scheme {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expirationDate;
 
-    @Column(name = "expirado", nullable = false)
-    private boolean expired = false;
-
     @Column(name = "url")
-    private String url = null;
+    private String url = null; //gera uma url com token como parâmetro para usuários votarem.
 
     @Column(name = "gerar_qrcode", nullable = false)
     private boolean generateQrcode = false; //se true, a url será convertida em imagem qrcode.
