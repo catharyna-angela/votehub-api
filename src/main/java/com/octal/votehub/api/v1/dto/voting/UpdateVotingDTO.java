@@ -1,7 +1,7 @@
 package com.octal.votehub.api.v1.dto.voting;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.octal.votehub.api.v1.dto.candidate.CreateCandidatesDTO;
+import com.octal.votehub.api.v1.dto.candidate.CreateCandidateDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +26,6 @@ public class UpdateVotingDTO {
 
     private boolean justify;
 
-    private List<CreateCandidatesDTO> candidates;
+    private List<CreateCandidateDTO> candidates;
 
 }

@@ -1,7 +1,7 @@
 package com.octal.votehub.api.v1.dto.voting;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.octal.votehub.api.v1.dto.candidate.CreateCandidatesDTO;
+import com.octal.votehub.api.v1.dto.candidate.CreateCandidateDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,6 +32,6 @@ public class CreateVotingDTO {
     private boolean justify;
 
     @NotNull(message = "É necessário adicionar os candidatos.")
-    private List<CreateCandidatesDTO> candidates;
+    private List<CreateCandidateDTO> candidates;
 
 }

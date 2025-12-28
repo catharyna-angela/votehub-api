@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.dto.voting;
 
-import com.octal.votehub.api.v1.dto.candidate.ResponseCandidatesDTO;
+import com.octal.votehub.api.v1.dto.candidate.ResponseCandidateDTO;
 import com.octal.votehub.api.v1.enums.SchemeType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +24,6 @@ public class ResponseUpdateVotingDTO {
     private boolean justify;
     private SchemeType schemeType;
     private LocalDateTime createdDate;
-    private List<ResponseCandidatesDTO> candidates;
+    private List<ResponseCandidateDTO> candidates;
 
 }
