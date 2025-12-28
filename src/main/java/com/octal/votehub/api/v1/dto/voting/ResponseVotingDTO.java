@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.dto.voting;
 
-import com.octal.votehub.api.v1.dto.candidate.ResponseVotingCandidatesDTO;
+import com.octal.votehub.api.v1.dto.candidate.ResponseCandidateDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +16,6 @@ public class ResponseVotingDTO {
     private String title;
     private String description;
     private String expirationDate;
-    private List<ResponseVotingCandidatesDTO> candidates;
+    private List<ResponseCandidateDTO> candidates;
+
 }
