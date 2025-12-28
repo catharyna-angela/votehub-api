@@ -1,7 +1,6 @@
 package com.octal.votehub.api.v1.config;
 
 import com.octal.votehub.api.v1.jwt.JwtAuthenticationFilter;
-import com.octal.votehub.api.v1.jwt.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +24,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class SpringSecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{
@@ -40,9 +38,9 @@ public class SpringSecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST, "/api/v1/auth/**").permitAll()
                         .requestMatchers(
-                                HttpMethod.GET, "/api/v1/schemes/voting/{id}").permitAll() //fixme: mudar id para token
+                                HttpMethod.GET, "/api/v1/schemes/voting/{id}").permitAll()
                         .requestMatchers(
-                                HttpMethod.POST, "/api/v1/schemes/voting/{id}").permitAll() //mudar id para token
+                                HttpMethod.POST, "/api/v1/schemes/voting/{id}/vote").permitAll()
                         .requestMatchers(
                                 "/h2-console/**").permitAll()
                         .requestMatchers(
@@ -51,20 +49,11 @@ public class SpringSecurityConfig {
                 )
                 .sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(daoAuthProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
 
     }
-
-//    @Bean
-//    public DaoAuthenticationProvider daoAuthProvider() {
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//        provider.setUserDetailsService(userDetailsServiceImpl);
-//        provider.setPasswordEncoder(passwordEncoder());
-//        return provider;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
