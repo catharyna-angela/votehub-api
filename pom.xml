@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.octalsystems</groupId>
 	<artifactId>votehub-api</artifactId>
-	<version>0.19.5-SNAPSHOT</version>
+	<version>0.19.6-SNAPSHOT</version>
 	<name>votehub-api</name>
-	<description>API REST de decisão por voto, enquete e outros.</description>
+	<description>API REST para criação de votação e enquetes.</description>
 	<url>https://github.com/catharyna-angela/votehub-api.git</url>
 	<licenses>
 			<license>
@@ -76,7 +76,12 @@
 			<optional>true</optional>
 		</dependency>
 		<!-- OTHER DEPENDENCIES -->
-		<dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.14</version>
+        </dependency>
+        <dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.13.0</version>
