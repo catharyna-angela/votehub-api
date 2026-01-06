@@ -84,13 +84,13 @@ public class AuthenticationService {
     public void resend(ResendEmailDTO resendEmailDTO) {
         Client client = clientRepository.findByEmail(resendEmailDTO.getEmail())
                 .orElseThrow(() -> {
-                    log.error("'E-mail não existe ou foi inserido incorretamente.'");
-                    return new RuntimeException("'Não foi possível reenviar o e-mail para ativação de conta, tente novamente.'");
+                    log.warn("'E-mail não existe ou foi inserido incorretamente.'");
+                    return new InvalidEmailException("Não foi possível reenviar o e-mail para ativação de conta, tente novamente.");
                 });
 
         if (client.isActivated()) {
-            log.error("'Cliente já tem a conta ativada.'");
-            throw new RuntimeException("'Não foi possível reenviar o e-mail para ativação de conta.'");
+            log.warn("'Cliente já tem a conta ativada.'");
+            throw new AccountAlreadyActivatedException("Não foi possível reenviar o e-mail para ativação de conta.");
         }
 
         String code = codeService.generateAndSave();
