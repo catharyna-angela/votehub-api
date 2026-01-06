@@ -5,6 +5,8 @@ import com.octal.votehub.api.v1.dto.authentication.LoginDTO;
 import com.octal.votehub.api.v1.dto.authentication.LoginResponseDTO;
 import com.octal.votehub.api.v1.dto.authentication.ResendEmailDTO;
 import com.octal.votehub.api.v1.entity.Client;
+import com.octal.votehub.api.v1.exception.AccountAlreadyActivatedException;
+import com.octal.votehub.api.v1.exception.InvalidEmailException;
 import com.octal.votehub.api.v1.jwt.JwtService;
 import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.repository.ClientRepository;
@@ -63,13 +65,13 @@ public class AuthenticationService {
     public void activation(AccountActivationDTO accountActivationDTO) {
         Client client = clientRepository.findByEmail(accountActivationDTO.getEmail())
                 .orElseThrow(() -> {
-                    log.error("'E-mail de usuário inserido incorretamente ou não existe.'");
-                    return new RuntimeException("'Não foi possível ativar conta, tente novamente.'");
+                    log.warn("'E-mail de usuário inserido incorretamente ou não existe.'");
+                    return new InvalidEmailException("Não foi possível ativar a conta, tente novamente.");
                 });
 
         if (client.isActivated()) {
-            log.error("'A conta do cliente já está ativa.'");
-            throw new RuntimeException("'Não foi possível ativar a conta.'");
+            log.warn("'A conta do cliente já está ativa.'");
+            throw new AccountAlreadyActivatedException("Não foi possível ativar a conta.");
         }
 
         codeService.validate(accountActivationDTO.getCode());
