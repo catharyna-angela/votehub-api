@@ -16,8 +16,9 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class JwtService {
-    private static final long EXPIRATION_MILLIS = 600000L;
+    private static final long EXPIRATION_MILLIS = 600000L; //10 minutos
     private static final MacAlgorithm signatureAlgorithm = Jwts.SIG.HS256;
+
     private final SecretKey secretKey;
 
     public JwtService(@Value("${jwt.secret}") String secret) {
@@ -25,13 +26,13 @@ public class JwtService {
     }
 
     public LoginResponseDTO generateToken(String role, String id, String email, String issuer) {
-        Date now = new Date();
-        Date limit = new Date(now.getTime() + EXPIRATION_MILLIS);
+        Date dateTimeNow = new Date();
+        Date limit = new Date(dateTimeNow.getTime() + EXPIRATION_MILLIS);
 
         String token = Jwts.builder()
                 .header().add("typ", "JWT").and()
                 .id(UUID.randomUUID().toString())
-                .issuedAt(now)
+                .issuedAt(dateTimeNow)
                 .expiration(limit)
                 .subject(id)
                 .issuer(issuer)
