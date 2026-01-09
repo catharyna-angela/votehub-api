@@ -4,14 +4,14 @@ import com.octal.votehub.api.v1.entity.Code;
 import com.octal.votehub.api.v1.repository.CodeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 @Slf4j
-@Service
+@Component
 @RequiredArgsConstructor
 public class CodeService {
     private static final String CHARACTERS = "ACDEHJLMRSTV0123456789";
