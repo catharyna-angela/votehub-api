@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.octalsystems</groupId>
 	<artifactId>votehub-api</artifactId>
-	<version>0.19.7-SNAPSHOT</version>
+	<version>0.19.8-SNAPSHOT</version>
 	<name>votehub-api</name>
 	<description>API REST para criação de votação e enquetes.</description>
 	<url>https://github.com/catharyna-angela/votehub-api.git</url>

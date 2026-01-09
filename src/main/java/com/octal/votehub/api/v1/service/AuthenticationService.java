@@ -6,6 +6,7 @@ import com.octal.votehub.api.v1.dto.authentication.LoginResponseDTO;
 import com.octal.votehub.api.v1.dto.authentication.ResendEmailDTO;
 import com.octal.votehub.api.v1.entity.Client;
 import com.octal.votehub.api.v1.exception.AccountAlreadyActivatedException;
+import com.octal.votehub.api.v1.exception.AccountIsntActivatedException;
 import com.octal.votehub.api.v1.exception.InvalidEmailException;
 import com.octal.votehub.api.v1.jwt.JwtService;
 import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
@@ -45,8 +46,8 @@ public class AuthenticationService {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
             if (!userDetails.isAccountActivated()) {
-                log.error("'Conta de usuário ainda não foi ativada.'");
-                throw new RuntimeException("'Não foi possível fazer o login.'");
+                log.warn("'Conta de usuário ainda não foi ativada.'");
+                throw new AccountIsntActivatedException("Não foi possível fazer o login.");
             }
 
             return jwtService.generateToken(

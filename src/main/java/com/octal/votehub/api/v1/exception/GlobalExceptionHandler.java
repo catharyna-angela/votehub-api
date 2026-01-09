@@ -26,4 +26,12 @@ public class GlobalExceptionHandler {
                 .body(new ExceptionMessageDTO(HttpStatus.CONFLICT.value(), exception.getMessage()));
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccountIsntActivatedException.class)
+    public ResponseEntity<ExceptionMessageDTO> AccountIsntActivatedException(AccountIsntActivatedException exception){
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(new ExceptionMessageDTO(HttpStatus.FORBIDDEN.value(), exception.getMessage()));
+    }
+
 }

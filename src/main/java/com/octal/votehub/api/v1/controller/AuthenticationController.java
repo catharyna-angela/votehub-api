@@ -1,5 +1,6 @@
 package com.octal.votehub.api.v1.controller;
 
+import com.octal.votehub.api.v1.documentation.AuthenticationDocumentation;
 import com.octal.votehub.api.v1.dto.authentication.AccountActivationDTO;
 import com.octal.votehub.api.v1.dto.authentication.LoginDTO;
 import com.octal.votehub.api.v1.dto.authentication.LoginResponseDTO;
@@ -9,33 +10,31 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-public class AuthenticationController {
+public class AuthenticationController implements AuthenticationDocumentation {
 
     private final AuthenticationService authenticationService;
 
     @PostMapping("/activation")
-    ResponseEntity<Void> activation(@RequestBody @Valid AccountActivationDTO accountActivationDTO){
+    public ResponseEntity<Void> activation(@RequestBody @Valid AccountActivationDTO accountActivationDTO){
         authenticationService.activation(accountActivationDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/resend-activation")
-    ResponseEntity<Void> resend(@RequestBody @Valid ResendEmailDTO resendEmailDTO){
+    public ResponseEntity<Void> resend(@RequestBody @Valid ResendEmailDTO resendEmailDTO){
         authenticationService.resend(resendEmailDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/login")
-    ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO){
         LoginResponseDTO loginResponseDTO = authenticationService.authenticate(loginDTO);
         return ResponseEntity.status(HttpStatus.OK).body(loginResponseDTO);
     }
+
 }
