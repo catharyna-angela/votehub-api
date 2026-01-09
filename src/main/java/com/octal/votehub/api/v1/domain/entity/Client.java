@@ -1,6 +1,6 @@
-package com.octal.votehub.api.v1.entity;
+package com.octal.votehub.api.v1.domain.entity;
 
-import com.octal.votehub.api.v1.enums.Roles;
+import com.octal.votehub.api.v1.domain.enums.Roles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +40,9 @@ public class Client {
 
     @Column(name = "conta_ativada", nullable = false)
     private boolean activated = false;
+
+    @OneToMany(mappedBy = "client")
+    private List<Code> codes; //solução temporária, mudar para o Redis
 
     @OneToMany(mappedBy = "client")
     @Column(name = "votacoes")

@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.entity;
+package com.octal.votehub.api.v1.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,8 +24,9 @@ public class Code {
     @Column(name = "codigo_de_ativacao")
     private String activationCode;
 
-    @Column(name = "expirado")
-    private boolean expired = false;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @Column(name = "data_de_expiracao")
     private LocalDateTime expirationDate;

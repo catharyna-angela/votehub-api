@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.entity;
+package com.octal.votehub.api.v1.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class Voting extends Scheme {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany(mappedBy = "voting", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "voting", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "candidatos_voto")
     private List<Candidate> candidates;
 

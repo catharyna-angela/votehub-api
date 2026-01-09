@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.entity;
+package com.octal.votehub.api.v1.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

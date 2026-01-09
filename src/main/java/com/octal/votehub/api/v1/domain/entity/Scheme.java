@@ -1,7 +1,7 @@
-package com.octal.votehub.api.v1.entity;
+package com.octal.votehub.api.v1.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.octal.votehub.api.v1.enums.SchemeType;
+import com.octal.votehub.api.v1.domain.enums.SchemeType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +37,7 @@ public abstract class Scheme {
     private LocalDateTime expirationDate;
 
     @Column(name = "url")
-    private String url = null; //gera uma url com token como parâmetro para usuários votarem.
+    private String url = null; //gera uma url ao criar votação com token no path para usuários votarem.
 
     @Column(name = "gerar_qrcode", nullable = false)
     private boolean generateQrcode = false; //se true, a url será convertida em imagem qrcode.
