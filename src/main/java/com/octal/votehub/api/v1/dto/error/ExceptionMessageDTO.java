@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.dto;
+package com.octal.votehub.api.v1.dto.error;
 
 import lombok.Getter;
 import lombok.Setter;

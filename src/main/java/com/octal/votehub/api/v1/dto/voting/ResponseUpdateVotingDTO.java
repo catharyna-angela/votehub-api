@@ -1,7 +1,7 @@
 package com.octal.votehub.api.v1.dto.voting;
 
 import com.octal.votehub.api.v1.dto.candidate.ResponseCandidateDTO;
-import com.octal.votehub.api.v1.enums.SchemeType;
+import com.octal.votehub.api.v1.domain.enums.SchemeType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
