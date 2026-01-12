@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.jwt;
+package com.octal.votehub.api.v1.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

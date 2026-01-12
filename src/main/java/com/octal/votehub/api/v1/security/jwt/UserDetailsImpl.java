@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.jwt;
+package com.octal.votehub.api.v1.security.jwt;
 
 import com.octal.votehub.api.v1.domain.entity.Client;
 import lombok.AllArgsConstructor;
