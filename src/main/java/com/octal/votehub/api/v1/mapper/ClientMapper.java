@@ -1,4 +1,4 @@
-package com.octal.votehub.api.v1.dto.mapper;
+package com.octal.votehub.api.v1.mapper;
 
 import com.octal.votehub.api.v1.dto.client.CreateClientDTO;
 import com.octal.votehub.api.v1.dto.client.ResponseCreateClientDTO;
