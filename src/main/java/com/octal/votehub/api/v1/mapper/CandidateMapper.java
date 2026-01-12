@@ -2,7 +2,7 @@ package com.octal.votehub.api.v1.dto.mapper;
 
 import com.octal.votehub.api.v1.dto.candidate.ChooseCandidateDTO;
 import com.octal.votehub.api.v1.dto.candidate.ResponseCandidateDTO;
-import com.octal.votehub.api.v1.entity.Candidate;
+import com.octal.votehub.api.v1.domain.entity.Candidate;
 import org.modelmapper.ModelMapper;
 
 public class CandidateMapper {

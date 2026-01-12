@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.controller;
 
-import com.octal.votehub.api.v1.entity.Scheme;
+import com.octal.votehub.api.v1.domain.entity.Scheme;
 import com.octal.votehub.api.v1.service.SchemeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

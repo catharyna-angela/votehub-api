@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.jwt;
 
-import com.octal.votehub.api.v1.entity.Client;
+import com.octal.votehub.api.v1.domain.entity.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

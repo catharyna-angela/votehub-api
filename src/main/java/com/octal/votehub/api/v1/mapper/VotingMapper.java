@@ -1,7 +1,7 @@
 package com.octal.votehub.api.v1.dto.mapper;
 
 import com.octal.votehub.api.v1.dto.voting.*;
-import com.octal.votehub.api.v1.entity.Voting;
+import com.octal.votehub.api.v1.domain.entity.Voting;
 import org.modelmapper.ModelMapper;
 
 public class VotingMapper {

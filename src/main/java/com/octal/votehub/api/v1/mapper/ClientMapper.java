@@ -3,7 +3,7 @@ package com.octal.votehub.api.v1.dto.mapper;
 import com.octal.votehub.api.v1.dto.client.CreateClientDTO;
 import com.octal.votehub.api.v1.dto.client.ResponseCreateClientDTO;
 import com.octal.votehub.api.v1.dto.client.UpdateClientDTO;
-import com.octal.votehub.api.v1.entity.Client;
+import com.octal.votehub.api.v1.domain.entity.Client;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 

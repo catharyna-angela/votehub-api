@@ -2,12 +2,12 @@ package com.octal.votehub.api.v1.controller;
 
 import com.octal.votehub.api.v1.dto.candidate.ChooseCandidateDTO;
 import com.octal.votehub.api.v1.dto.candidate.ResponseCandidateDTO;
-import com.octal.votehub.api.v1.dto.mapper.CandidateMapper;
-import com.octal.votehub.api.v1.dto.mapper.VotingMapper;
+import com.octal.votehub.api.v1.mapper.CandidateMapper;
+import com.octal.votehub.api.v1.mapper.VotingMapper;
 import com.octal.votehub.api.v1.dto.voting.*;
-import com.octal.votehub.api.v1.entity.Candidate;
-import com.octal.votehub.api.v1.entity.Voting;
-import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
+import com.octal.votehub.api.v1.domain.entity.Candidate;
+import com.octal.votehub.api.v1.domain.entity.Voting;
+import com.octal.votehub.api.v1.security.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.service.VotingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
