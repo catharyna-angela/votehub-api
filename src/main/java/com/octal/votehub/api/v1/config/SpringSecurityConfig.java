@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.config;
 
-import com.octal.votehub.api.v1.jwt.JwtAuthenticationFilter;
+import com.octal.votehub.api.v1.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
