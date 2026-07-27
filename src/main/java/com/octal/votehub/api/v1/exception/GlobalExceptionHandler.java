@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.exception;
 
-import com.octal.votehub.api.v1.dto.ExceptionMessageDTO;
+import com.octal.votehub.api.v1.dto.error.ExceptionMessageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

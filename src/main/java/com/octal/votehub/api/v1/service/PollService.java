@@ -1,8 +1,8 @@
 package com.octal.votehub.api.v1.service;
 
-import com.octal.votehub.api.v1.entity.Poll;
+import com.octal.votehub.api.v1.domain.entity.Poll;
+import com.octal.votehub.api.v1.domain.enums.SchemeType;
 import com.octal.votehub.api.v1.repository.PollRepository;
-import com.octal.votehub.api.v1.enums.SchemeType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

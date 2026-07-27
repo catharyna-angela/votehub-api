@@ -1,9 +1,9 @@
 package com.octal.votehub.api.v1.service;
 
-import com.octal.votehub.api.v1.entity.Candidate;
-import com.octal.votehub.api.v1.entity.Client;
-import com.octal.votehub.api.v1.entity.Voting;
-import com.octal.votehub.api.v1.enums.SchemeType;
+import com.octal.votehub.api.v1.domain.entity.Candidate;
+import com.octal.votehub.api.v1.domain.entity.Client;
+import com.octal.votehub.api.v1.domain.entity.Voting;
+import com.octal.votehub.api.v1.domain.enums.SchemeType;
 import com.octal.votehub.api.v1.repository.CandidateRepository;
 import com.octal.votehub.api.v1.repository.ClientRepository;
 import com.octal.votehub.api.v1.repository.VotingRepository;
