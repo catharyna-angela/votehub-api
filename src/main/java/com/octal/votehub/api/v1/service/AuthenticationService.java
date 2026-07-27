@@ -1,16 +1,16 @@
 package com.octal.votehub.api.v1.service;
 
+import com.octal.votehub.api.v1.domain.entity.Client;
 import com.octal.votehub.api.v1.dto.authentication.AccountActivationDTO;
 import com.octal.votehub.api.v1.dto.authentication.LoginDTO;
 import com.octal.votehub.api.v1.dto.authentication.LoginResponseDTO;
 import com.octal.votehub.api.v1.dto.authentication.ResendEmailDTO;
-import com.octal.votehub.api.v1.entity.Client;
 import com.octal.votehub.api.v1.exception.AccountAlreadyActivatedException;
 import com.octal.votehub.api.v1.exception.AccountIsntActivatedException;
 import com.octal.votehub.api.v1.exception.InvalidEmailException;
-import com.octal.votehub.api.v1.jwt.JwtService;
-import com.octal.votehub.api.v1.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.repository.ClientRepository;
+import com.octal.votehub.api.v1.security.jwt.JwtService;
+import com.octal.votehub.api.v1.security.jwt.UserDetailsImpl;
 import com.octal.votehub.api.v1.util.CodeService;
 import com.octal.votehub.api.v1.util.EmailService;
 import lombok.RequiredArgsConstructor;

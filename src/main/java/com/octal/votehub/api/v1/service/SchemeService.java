@@ -1,6 +1,6 @@
 package com.octal.votehub.api.v1.service;
 
-import com.octal.votehub.api.v1.entity.Scheme;
+import com.octal.votehub.api.v1.domain.entity.Scheme;
 import com.octal.votehub.api.v1.repository.SchemeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
