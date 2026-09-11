@@ -42,13 +42,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST, "/api/v1/schemes/voting/{id}/vote").permitAll()
                         .requestMatchers(
-                                 "/swagger-ui/**").permitAll()
-                        .requestMatchers(
-                                 "/votehub-api/**").permitAll()
-                        .requestMatchers(
-                                "/h2-console/**").permitAll()
-                        .requestMatchers(
-                                "/actuator/**").permitAll()
+                                 "/swagger-ui/**", "/votehub-api/**", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer
