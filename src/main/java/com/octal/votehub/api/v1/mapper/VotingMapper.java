@@ -6,6 +6,9 @@ import org.modelmapper.ModelMapper;
 
 public class VotingMapper {
 
+    private VotingMapper() {
+    }
+
     public static Voting toVoting(CreateVotingDTO createVotingDTO) {
         return new ModelMapper().map(createVotingDTO, Voting.class);
     }
