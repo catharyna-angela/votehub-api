@@ -16,7 +16,7 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class JwtService {
-    private static final long EXPIRATION_MILLIS = 600000L; //10 minutos
+    private static final long EXPIRATION_MILLIS = 1200000L; //20 minutos
     private static final MacAlgorithm signatureAlgorithm = Jwts.SIG.HS256;
 
     private final SecretKey secretKey;
