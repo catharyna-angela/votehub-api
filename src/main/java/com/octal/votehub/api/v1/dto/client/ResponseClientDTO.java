@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ResponseCreateClientDTO {
+public class ResponseClientDTO {
     private Long id;
     private String name;
     private String email;
     private String role;
-
 }
