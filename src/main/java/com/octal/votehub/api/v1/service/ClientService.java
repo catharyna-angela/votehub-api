@@ -50,7 +50,7 @@ public class ClientService {
     }
 
     @Transactional
-    public void update(Client client, String email) {
+    public void updateAccountInfo(Client client, String email) {
         try {
             Client existingClient = clientRepository.findByEmail(email)
                     .orElseThrow(() -> new RuntimeException("'Id do cliente está incorreto ou não existe.'"));
@@ -73,4 +73,11 @@ public class ClientService {
         log.info("'Cliente atualizado com sucesso.'");
     }
 
+    @Transactional(readOnly = true)
+    public Client getMyAccountInfo(Long id) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("'Um erro inesperado ocorreu.'"));
+
+        return client;
+    }
 }
