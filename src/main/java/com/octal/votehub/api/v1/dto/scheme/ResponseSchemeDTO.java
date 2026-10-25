@@ -13,10 +13,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResponseSchemeDTO {
+    private Long id;
     private String title;
     private SchemeType schemeType;
     private String description;
     private LocalDateTime expirationDate;
-    //private boolean isExpired;
+    private boolean isExpired;
 
 }
