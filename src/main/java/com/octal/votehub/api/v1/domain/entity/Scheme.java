@@ -36,6 +36,9 @@ public abstract class Scheme {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expirationDate;
 
+    @Column(name = "expirado", nullable = false)
+    private boolean isExpired = false;
+
     @Column(name = "url")
     private String url = null; //gera uma url ao criar votação com token no path para usuários votarem.
 
@@ -64,5 +67,12 @@ public abstract class Scheme {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public void dateExpired(LocalDateTime now) {
+        if (!isExpired && !now.isBefore(expirationDate)) {
+            this.isExpired = true;
+        }
+
     }
 }

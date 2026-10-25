@@ -5,9 +5,11 @@ import com.octal.votehub.api.v1.dto.scheme.ResponseSchemeDTO;
 import com.octal.votehub.api.v1.mapper.SchemeMapper;
 import com.octal.votehub.api.v1.service.SchemeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,15 +24,19 @@ public class SchemeController {
 
     @GetMapping
     @PreAuthorize("hasRole('CLIENT')")
-    public ResponseEntity<List<ResponseSchemeDTO>> getAll() {
+    public ResponseEntity<List<ResponseSchemeDTO>> getAll() { //fixme: adicionar paginação e ordenação
         List<Scheme> schemes = schemeService.findAll();
 
-        List<ResponseSchemeDTO> response = schemes.stream()
+        List<ResponseSchemeDTO> response = schemes.stream() //mover para o package de mapper
                 .map(SchemeMapper::toResponseSchemeDTO)
                 .toList();
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    //getSchemeById
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseSchemeDTO> getSchemeById(@PathVariable Long id){
+        Scheme scheme = schemeService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(SchemeMapper.toResponseSchemeDTO(scheme));
+    }
 }
